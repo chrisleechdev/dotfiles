@@ -1,8 +1,11 @@
+alias amend="git commit --amend --no-edit"
+alias branch="git checkout -b"
+
 function branchchris {
 git fetch && git switch -c chrisleech-$1 origin/master
 }
 
-function branchcexp {
+function branchcor {
   git fetch && git switch -c chrisleech-cor-$1 origin/master
 }
 
