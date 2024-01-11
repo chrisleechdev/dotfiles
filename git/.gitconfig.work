@@ -1,0 +1,16 @@
+[user]
+  name = "Chris Leech"
+  email = "chrisleech@monzo.com"
+
+[url "ssh://git@github.com/monzo/"]
+	insteadOf = https://github.com/monzo/
+
+[url "https://github.com/"]
+  insteadOf = gh:
+
+[scalar]
+	repo = /Users/chrisleech/src/github.com/monzo/wearedev
+
+[maintenance]
+	repo = /Users/chrisleech/src/github.com/monzo/wearedev
+

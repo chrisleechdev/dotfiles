@@ -1,0 +1,46 @@
+[user]
+	name = Chris Leech
+  email = chrisleech@monzo.com
+[include]
+  path= ~/dotfiles/git/.gitconfig.dracula
+[includeIf "gitdir:~/src/github.com/monzo/"]
+  path= ~/dotfiles/git/.gitconfig.work
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[core]
+	autocrif = input
+	safecrlf = true
+	autocrlf = input
+  editor = nvim
+  pager = delta
+[init]
+	defaultBranch = master
+[url "ssh://git@github.com/monzo/"]
+	insteadOf = https://github.com/monzo/
+[url "https://github.com/"]
+  insteadOf = gh:
+[interactive]
+  diffFilter = delta --color-only
+[delta]
+  side-by-side = true
+  line-numbers = true
+[fetch]
+	prune = true
+[pull]
+	rebase = true
+[diff]
+	colorMoved = zebra
+[push]
+	autoSetupRemote = true
+[alias]
+	empty = git commit --allow-empty
+[status]
+    	short = false
+[scalar]
+	repo = /Users/chrisleech/src/github.com/monzo/wearedev
+[maintenance]
+	repo = /Users/chrisleech/src/github.com/monzo/wearedev
+
