@@ -1,5 +1,5 @@
 # Aliases for commonly used Monzo repos
-alias wearedev="~/src/github.com/monzo/wearedev/"
+alias wad="~/src/github.com/monzo/wearedev/"
 alias web="~/src/github.com/monzo/web-projects/"
 alias pubweb="~/src/github.com/monzo/public-web-projects/"
 
@@ -119,4 +119,14 @@ whoscalling() {
 owner() {
         repo="${GOPATH}/src/github.com/monzo/wearedev/CODEOWNERS"
         grep "/$1/" ${repo}
+}
+
+function ss()
+{
+ shipper deploy --s101 --skip-confirm-rollout $(gh pr list -A "@me" -s all | fzf --sync | awk '{print $1}') 
+}
+
+function sp()
+{
+ shipper deploy --prod --skip-confirm-rollout $(gh pr list -A "@me" -s all | fzf --sync | awk '{print $1}') 
 }
