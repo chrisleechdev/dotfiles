@@ -75,6 +75,11 @@ gen() {
     # brew install coreutils
     dir=$(basename `realpath $1`)
 
+    # GO GEN #
+    echo -ne "$dir: go generate " | tee -a $LOGFILE
+    go generate "$WEAREDEV/$dir/..." > $LOGFILE
+    echo "✅" | tee -a $LOGFILE
+
     # MANIFESTS #
     echo -ne "$dir: manifests " | tee -a $LOGFILE
     $WEAREDEV/bin/generate_manifests "$WEAREDEV/$dir" > $LOGFILE
@@ -108,6 +113,28 @@ gen() {
     echo "\nLogs: $LOGFILE"
 }
 
+gentest() {
+  WEAREDEV="$GOPATH/src/github.com/monzo/wearedev"
+  LOGFILE="${TMPDIR}gen_log.txt"
+
+  echo "" > $LOGFILE
+
+	if [ "$#" -eq 0 ]; then
+		echo "Usage: gentest <dir>"
+        return 1
+	fi
+
+  dir=$(basename `realpath $1`)
+
+
+  # Go Test #
+  echo -ne "$dir: go test " | tee -a $LOGFILE
+  go test "$WEAREDEV/$dir/..." > $LOGFILE
+
+  echo "\nLogs: $LOGFILE"
+
+}
+
 # See which services are being called by a given service.
 # e.g. whoscalling service.account
 whoscalling() {
@@ -121,12 +148,20 @@ owner() {
         grep "/$1/" ${repo}
 }
 
-function ss()
-{
+function ahoy() {
+local branch
+  branch=$(fgb $1)
+  if [ $? -ne 0 ]; then
+    return 1
+  fi
+
+  if [[ "$branch" = "" ]]; then
+    echo "No branch selected"
+    return 1
+  fi
  shipper deploy --s101 --skip-confirm-rollout $(gh pr list -A "@me" -s all | fzf --sync | awk '{print $1}') 
 }
 
-function sp()
-{
+function ahoyp() {
  shipper deploy --prod --skip-confirm-rollout $(gh pr list -A "@me" -s all | fzf --sync | awk '{print $1}') 
 }
