@@ -145,6 +145,9 @@
 
   # Add an empty line before each prompt.
   typeset -g POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
+  
+  # Stop me being shouted at
+  typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 
   # Connect left prompt lines with these symbols.
   typeset -g POWERLEVEL9K_MULTILINE_FIRST_PROMPT_PREFIX=
