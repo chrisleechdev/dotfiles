@@ -1,10 +1,13 @@
 export DOTFILES="$HOME/dotfiles"
 
+export MONZO="$GOPATH/src/github.com/monzo"
+[ -f ${GOPATH}/src/github.com/monzo/starter-pack/zshrc ] && source $HOME/src/github.com/monzo/starter-pack/zshrc
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+    source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
 ZSH_THEME="powerlevel10k/powerlevel10k"
@@ -23,13 +26,10 @@ export GOPATH=$HOME
 export PATH="$PATH:$GOPATH/bin"
 
 for file in ${ZDOTDIR:-$HOME}/zshaliases/* ; do
-  if [ -f "$file" ] ; then
-    source "$file"
-  fi
+    if [ -f "$file" ] ; then
+        source "$file"
+    fi
 done
-
-export MONZO="$GOPATH/src/github.com/monzo"
-[ -f ${GOPATH}/src/github.com/monzo/starter-pack/zshrc ] && source $HOME/src/github.com/monzo/starter-pack/zshrc
 
 export PATH=/opt/homebrew/bin:$PATH
 
