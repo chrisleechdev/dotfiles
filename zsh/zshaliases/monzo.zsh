@@ -11,6 +11,11 @@ alias shipp="shipper deploy --skip-confirm-rollout --prod"
 alias prw="fzf --bind ctrl-u:preview-page-up,ctrl-d:preview-page-down --preview 'bat --style=numbers --color=always {}'"
 alias protos="find . -type f -name '*.proto' | prw"
 
+# test dynamic views
+testview() {
+    open $(go run ./scripts/cmd/dynamic-view-tester/create/main.go | sed -e "s/monzo/monzostage/g")
+}
+
 # Watch all files for changes, and run tests when they change.
 watchtests() {
     if ! command -v fd &> /dev/null; then
@@ -114,24 +119,27 @@ gen() {
 }
 
 gentest() {
-  WEAREDEV="$GOPATH/src/github.com/monzo/wearedev"
-  LOGFILE="${TMPDIR}gen_log.txt"
+    WEAREDEV="$GOPATH/src/github.com/monzo/wearedev"
+    LOGFILE="${TMPDIR}gen_log.txt"
 
-  echo "" > $LOGFILE
+    echo "" > $LOGFILE
 
-	if [ "$#" -eq 0 ]; then
-		echo "Usage: gentest <dir>"
-        return 1
-	fi
+        if [ "$#" -eq 0 ]; then
+            echo "Usage: gentest <dir>"
+            return 1
+        fi
 
-  dir=$(basename `realpath $1`)
+    dir=$(basename `realpath $1`)
 
+    # golangci-lint #
+    echo -ne "$dir: golangci-lint " | tee -a $LOGFILE
+    golangci-lint run "$WEAREDEV/$dir/..." > $LOGFILE
 
-  # Go Test #
-  echo -ne "$dir: go test " | tee -a $LOGFILE
-  go test "$WEAREDEV/$dir/..." > $LOGFILE
+    # Go Test #
+    echo -ne "$dir: go test " | tee -a $LOGFILE
+    go test "$WEAREDEV/$dir/..." > $LOGFILE
 
-  echo "\nLogs: $LOGFILE"
+    echo "\nLogs: $LOGFILE"
 
 }
 
@@ -150,18 +158,18 @@ owner() {
 
 function ahoy() {
 local branch
-  branch=$(fgb $1)
-  if [ $? -ne 0 ]; then
-    return 1
-  fi
+    branch=$(fgb $1)
+    if [ $? -ne 0 ]; then
+        return 1
+    fi
 
-  if [[ "$branch" = "" ]]; then
-    echo "No branch selected"
-    return 1
-  fi
- shipper deploy --s101 --skip-confirm-rollout $(gh pr list -A "@me" -s all | fzf --sync | awk '{print $1}') 
-}
+    if [[ "$branch" = "" ]]; then
+        echo "No branch selected"
+        return 1
+    fi
+    shipper deploy --s101 --skip-confirm-rollout $(gh pr list -A "@me" -s all | fzf --sync | awk '{print $1}') 
+    }
 
 function ahoyp() {
- shipper deploy --prod --skip-confirm-rollout $(gh pr list -A "@me" -s all | fzf --sync | awk '{print $1}') 
+    shipper deploy --prod --skip-confirm-rollout $(gh pr list -A "@me" -s all | fzf --sync | awk '{print $1}') 
 }
