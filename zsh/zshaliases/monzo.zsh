@@ -167,9 +167,9 @@ local branch
         echo "No branch selected"
         return 1
     fi
-    shipper deploy --s101 --skip-confirm-rollout $(gh pr list -A "@me" -s all | fzf --sync | awk '{print $1}') 
+    ship $(gh pr list -A "@me" -s all | fzf --sync | awk '{print $1}') 
     }
 
 function ahoyp() {
-    shipper deploy --prod --skip-confirm-rollout $(gh pr list -A "@me" -s all | fzf --sync | awk '{print $1}') 
+    shipp $(gh pr list -A "@me" -s all | fzf --sync | awk '{print $1}') 
 }

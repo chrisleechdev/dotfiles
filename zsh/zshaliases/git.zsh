@@ -11,7 +11,7 @@ alias todos="c; git diff | grep TODO | grep + | grep -v ISAV- | sed 's/+//g' | s
 alias whoops="git reset --soft HEAD~1"
 
 # Checkout master and pull quietly
-alias gcmp="git checkout master && git pull -q"
+alias gcmp="git checkout master && git pull"
 
 # Merge master into feature branch
 alias gfm="git fetch && git merge origin/master"

@@ -1,2 +1,2 @@
 export EDITOR="nvim"
-export VISUAL_EDITOR="code --wait"
+export VISUAL_EDITOR="goland --wait"
