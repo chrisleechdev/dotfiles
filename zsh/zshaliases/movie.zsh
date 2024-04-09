@@ -81,4 +81,4 @@ shrink_vid() {
 
     runcommand="ffmpeg -i "$src" -vf scale=$scale -c:a copy "$target""
 
-}
+}switchEmailProvider
