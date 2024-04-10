@@ -157,19 +157,9 @@ owner() {
 }
 
 function ahoy() {
-local branch
-    branch=$(fgb $1)
-    if [ $? -ne 0 ]; then
-        return 1
-    fi
-
-    if [[ "$branch" = "" ]]; then
-        echo "No branch selected"
-        return 1
-    fi
     ship $(gh pr list -A "@me" -s all | fzf --sync | awk '{print $1}') 
-    }
+}
 
 function ahoyp() {
-    shipp $(gh pr list -A "@me" -s all | fzf --sync | awk '{print $1}') 
+    shipp $(gh pr list -A "@me" -s merged | fzf --sync | awk '{print $1}') 
 }
