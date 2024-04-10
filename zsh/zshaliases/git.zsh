@@ -39,4 +39,17 @@ function deletemerged {
   git branch -vv | grep 'origin/.*: gone]' | awk '{print $1}' | xargs git branch -D
 }
 
+function get_branch {
+    local branch
+    branch=$(fgb $1)
+    if [ $? -ne 0 ]; then
+        return 1
+    fi
 
+    if [[ "$branch" = "" ]]; then
+        echo "No branch selected"
+        return 1
+    fi
+
+    echo "$branch"
+}
