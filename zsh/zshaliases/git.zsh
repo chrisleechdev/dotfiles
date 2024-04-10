@@ -21,13 +21,28 @@ alias gap='git add -p'
 
 # functions
 
-function branchchris {
-  git fetch -q && git switch -c chrisleech-$1 origin/master
+function cbranch {
+  local branch_name="${1//[ _]/-}"  # Replace spaces and underscores with hyphens
+  git fetch && git switch -c "chrisl-$branch_name" origin/master
 }
 
+
 function nbranch {
-  git fetch && git switch -c $1 origin/master
+  local branch_name="${1//[ _]/-}"  # Replace spaces and underscores with hyphens
+  git fetch && git switch -c "$branch_name" origin/master
 }
+
+function create_branch {
+  local prefix="${2:-}"  # Optional prefix, default is empty
+  local branch_name="${1//[ _]/-}"  # Replace spaces and underscores with hyphens
+  
+  if [[ -n "$prefix" ]]; then
+    branch_name="${prefix}-${branch_name}"
+  fi
+
+  git fetch && git switch -c "$branch_name" origin/master
+}
+
 
 function lsmerged {
   git fetch -q
