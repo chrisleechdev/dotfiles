@@ -153,7 +153,7 @@ whoscalling() {
 # find codeowner for a service
 owner() {
         repo="${GOPATH}/src/github.com/monzo/wearedev/CODEOWNERS"
-        grep "/$1" ${repo} | sed -E "s/.*@monzo\/([^ ]*).*/\1/"
+        grep "/$1" ${repo} 
 }
 
 function ahoy() {
