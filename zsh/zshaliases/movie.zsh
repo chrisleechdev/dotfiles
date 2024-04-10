@@ -48,7 +48,7 @@ function v2g() {
     osascript -e "display notification \"$target successfully converted and saved\" with title \"v2g complete\""
 }
 
-shrink_vid() {
+function downscale() {
     src="" # required
     target="" # optional (defaults to source file name)
     scale="" # optional (defaults to half resolution)
@@ -81,4 +81,4 @@ shrink_vid() {
 
     runcommand="ffmpeg -i "$src" -vf scale=$scale -c:a copy "$target""
 
-}switchEmailProvider
+}
