@@ -157,9 +157,9 @@ owner() {
 }
 
 function ahoy() {
-    ship $(gh pr list -A "@me" -s all | fzf --sync | awk '{print $1}') 
+    ship $(gh pr list -A "@me" -s all -L 10 | fzf --sync | awk '{print $1}') 
 }
 
 function ahoyp() {
-    shipp $(gh pr list -A "@me" -s merged | fzf --sync | awk '{print $1}') 
+    shipp $(gh pr list -A "@me" -s merged -L 10 | fzf --sync | awk '{print $1}') 
 }
